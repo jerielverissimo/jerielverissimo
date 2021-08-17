@@ -1,6 +1,8 @@
 baseurl = "https://jerielverissimo.github.io/"
-languageCode = "en-us"
+languageCode = "en"
+defaultContentLanguage = "pt"
 theme = "terminal"
+disqusShortname = 'na-minha-maquina-funciona'
 paginate = 5
 
 [permalinks]
@@ -47,11 +49,12 @@ paginate = 5
   site = ""
 
 [languages]
-  [languages.en]
-    languageName = "English"
-    title = "Terminal"
-    subtitle = "A simple, retro theme for Hugo"
-    owner = ""
+  [languages.pt]
+    weight = 1
+    languageName = "Portuguese (Brazil)"
+    title = "Na minha máquina funciona"
+    subtitle = ""
+    owner = "Jeriel Baptista Verissimo"
     keywords = ""
     copyright = ""
     menuMore = "Show more"
@@ -62,16 +65,89 @@ paginate = 5
     missingContentMessage = "Page not found..."
     missingBackButtonLabel = "Back to home page"
 
-    [languages.en.params.logo]
-      logoText = "Terminal"
+    [languages.pt.params.logo]
+      logoText = "Nomad"
       logoHomeLink = "/"
 
-    [languages.en.menu]
-      [[languages.en.menu.main]]
+    [languages.pt.menu]
+      [[languages.pt.menu.main]]
         identifier = "about"
         name = "About"
         url = "/about"
-      [[languages.en.menu.main]]
+      [[languages.pt.menu.main]]
         identifier = "showcase"
         name = "Showcase"
         url = "/showcase"
+
+[markup]
+  defaultMarkdownHandler = 'goldmark'
+[markup.asciidocExt]
+  backend = 'html5'
+  extensions = []
+  failureLevel = 'fatal'
+  noHeaderOrFooter = true
+  preserveTOC = false
+  safeMode = 'unsafe'
+  sectionNumbers = false
+  trace = false
+  verbose = false
+  workingFolderCurrent = false
+[markup.asciidocExt.attributes]
+
+
+[markup.blackFriday]
+  angledQuotes = false
+  footnoteAnchorPrefix = ''
+  footnoteReturnLinkContents = ''
+  fractions = true
+  hrefTargetBlank = false
+  latexDashes = true
+  nofollowLinks = false
+  noreferrerLinks = false
+  plainIDAnchors = true
+  skipHTML = false
+  smartDashes = true
+  smartypants = true
+  smartypantsQuotesNBSP = false
+  taskLists = true
+
+[markup.goldmark]
+[markup.goldmark.extensions]
+  definitionList = true
+  footnote = true
+  linkify = true
+  strikethrough = true
+  table = true
+  taskList = true
+  typographer = true
+
+[markup.goldmark.parser]
+  autoHeadingID = true
+  autoHeadingIDType = 'github'
+[markup.goldmark.parser.attribute]
+  block = false
+  title = true
+
+[markup.goldmark.renderer]
+  hardWraps = false
+  unsafe = true
+  xhtml = false
+
+
+[markup.highlight]
+  anchorLineNos = false
+  codeFences = true
+  guessSyntax = false
+  hl_Lines = ''
+  lineAnchors = ''
+  lineNoStart = 1
+  lineNos = false
+  lineNumbersInTable = true
+  noClasses = true
+  style = 'gruvbox'
+  tabWidth = 4
+
+[markup.tableOfContents]
+  endLevel = 3
+  ordered = false
+  startLevel = 2
