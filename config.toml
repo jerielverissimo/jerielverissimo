@@ -66,7 +66,7 @@ paginate = 5
     missingBackButtonLabel = "Back to home page"
 
     [languages.pt.params.logo]
-      logoText = "Nomad"
+      logoText = "Na minha máquina funciona"
       logoHomeLink = "/"
 
     [languages.pt.menu]
