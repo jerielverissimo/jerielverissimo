@@ -26,7 +26,7 @@ paginate = 5
   fullWidthTheme = false
 
   # center theme with default width
-  centerTheme = false
+  centerTheme = true
 
   # set a custom favicon (default is a `themeColor` square)
   # favicon = "favicon.ico"
@@ -45,8 +45,8 @@ paginate = 5
   # set Twitter handles for Twitter cards
   # see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/getting-started#card-and-content-attribution
   # do not include @
-  creator = ""
-  site = ""
+  creator = "J3r137"
+  site = "https://jerielverissimo.github.io/"
 
 [languages]
   [languages.pt]
@@ -57,13 +57,13 @@ paginate = 5
     owner = "Jeriel Baptista Verissimo"
     keywords = ""
     copyright = ""
-    menuMore = "Show more"
-    readMore = "Read more"
-    readOtherPosts = "Read other posts"
-    newerPosts = "Newer posts"
-    olderPosts = "Older posts"
-    missingContentMessage = "Page not found..."
-    missingBackButtonLabel = "Back to home page"
+    menuMore = "Mostrar mais"
+    readMore = "Leia mais"
+    readOtherPosts = "Ler outros posts"
+    newerPosts = "Novos posts"
+    olderPosts = "Posts antigos"
+    missingContentMessage = "Página não encontrada..."
+    missingBackButtonLabel = "Voltar a página principal"
 
     [languages.pt.params.logo]
       logoText = "Na minha máquina funciona"
@@ -71,13 +71,13 @@ paginate = 5
 
     [languages.pt.menu]
       [[languages.pt.menu.main]]
-        identifier = "about"
-        name = "About"
-        url = "/about"
-      [[languages.pt.menu.main]]
-        identifier = "showcase"
-        name = "Showcase"
-        url = "/showcase"
+        identifier = "sobre"
+        name = "Sobre"
+        url = "/sobre"
+#      [[languages.pt.menu.main]]
+#        identifier = "showcase"
+#        name = "Showcase"
+#        url = "/showcase"
 
 [markup]
   defaultMarkdownHandler = 'goldmark'
