@@ -1,7 +1,7 @@
 baseurl = "https://jerielverissimo.github.io/"
 languageCode = "en"
 defaultContentLanguage = "pt"
-theme = "terminal"
+theme = "hello-friend"
 disqusShortname = 'na-minha-maquina-funciona'
 paginate = 5
 
