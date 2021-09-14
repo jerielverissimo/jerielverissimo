@@ -287,7 +287,7 @@ const listener = function (req, res) {
 ...
 ```
 
-Para adicionar um usuário vamos simplesmente adicionar o conteúdo da request em array, então nossa função *post vai* fica assim:
+Para adicionar um usuário vamos simplesmente adicionar o conteúdo da request em um array, então nossa função *post vai* fica assim:
 
 ```js
 ...
@@ -302,7 +302,7 @@ const post = function (req, res) {
   // quando todos os pedaços da requisição chegaram :)
   req.on('end', () => {
     const user = JSON.parse(body);
-    users.push(user);
+    users.push(user); // adiciona o usuário em nossa lista
 
     // também podemos adicionar ao mesmo tempo o status e os headers
     res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -370,9 +370,8 @@ E assim terminamos esse longo artigo, espero que tenha aprendido algo com ele, c
 [gist](https://gist.github.com/jerielverissimo/c84d24fb66bf813d056d8cef0aff270e).
 
 Claro que com isso que vimos hoje, talvez você não sai criando uma aplicação grande,
-já que é um pouco mais "baixo" nível, e normalmente usamos um framework para fazer esse tipo tarefas,
-porém com esse conteúdo podemos tentar criar nosso mini-framework ao estilo express. que adivinha será nosso próximo desafio hehe.
-
+já que isso é um pouco mais "baixo" nível e normalmente usamos um framework para fazer esse tipo tarefas,
+porém com esse conteúdo podemos tentar criar nosso mini-framework ao estilo express, que será nosso próximo assunto hehe.
 
 
 #### Referências
@@ -382,8 +381,3 @@ porém com esse conteúdo podemos tentar criar nosso mini-framework ao estilo ex
 [NodeJS server receiving POST request](https://stackoverflow.com/questions/51071321/nodejs-server-receiving-post-request)
 
 [Node.js - Streams](https://www.tutorialspoint.com/nodejs/nodejs_streams.htm)
-
-
-
-
-
