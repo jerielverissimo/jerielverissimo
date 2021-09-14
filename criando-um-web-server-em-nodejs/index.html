@@ -246,7 +246,7 @@ Caso a url seja diferente da que estamos esperando, devolvemos um <em><strong>40
   }
 };
 ...
-</code></pre></div><p>Para adicionar um usuário vamos simplesmente adicionar o conteúdo da request em array, então nossa função <em>post vai</em> fica assim:</p>
+</code></pre></div><p>Para adicionar um usuário vamos simplesmente adicionar o conteúdo da request em um array, então nossa função <em>post vai</em> fica assim:</p>
 <div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js>...
 <span style=color:#fff;font-weight:700>const</span> users = [];
 
@@ -259,8 +259,8 @@ Caso a url seja diferente da que estamos esperando, devolvemos um <em><strong>40
   <span style=color:#007f7f>// quando todos os pedaços da requisição chegaram :)
 </span><span style=color:#007f7f></span>  req.on(<span style=color:#0ff;font-weight:700>&#39;end&#39;</span>, () =&gt; {
     <span style=color:#fff;font-weight:700>const</span> user = JSON.parse(body);
-    users.push(user);
-
+    users.push(user); <span style=color:#007f7f>// adiciona o usuário em nossa lista
+</span><span style=color:#007f7f></span>
     <span style=color:#007f7f>// também podemos adicionar ao mesmo tempo o status e os headers
 </span><span style=color:#007f7f></span>    res.writeHead(<span style=color:#ff0;font-weight:700>200</span>, { <span style=color:#0ff;font-weight:700>&#39;Content-Type&#39;</span>: <span style=color:#0ff;font-weight:700>&#39;application/json&#39;</span> });
     res.end(<span style=color:#0ff;font-weight:700>&#39;User added&#39;</span>); <span style=color:#007f7f>// devolve resposta para o cliente
@@ -310,8 +310,8 @@ User added
 </code></pre></div><p>E assim terminamos esse longo artigo, espero que tenha aprendido algo com ele, caso queira ver o arquivo final criei este
 <a href=https://gist.github.com/jerielverissimo/c84d24fb66bf813d056d8cef0aff270e>gist</a>.</p>
 <p>Claro que com isso que vimos hoje, talvez você não sai criando uma aplicação grande,
-já que é um pouco mais &ldquo;baixo&rdquo; nível, e normalmente usamos um framework para fazer esse tipo tarefas,
-porém com esse conteúdo podemos tentar criar nosso mini-framework ao estilo express. que adivinha será nosso próximo desafio hehe.</p>
+já que isso é um pouco mais &ldquo;baixo&rdquo; nível e normalmente usamos um framework para fazer esse tipo tarefas,
+porém com esse conteúdo podemos tentar criar nosso mini-framework ao estilo express, que será nosso próximo assunto hehe.</p>
 <h4 id=referências>Referências</h4>
 <p><a href=https://www.digitalocean.com/community/tutorials/how-to-create-a-web-server-in-node-js-with-the-http-module>How To Create a Web Server in Node.js with the HTTP Module</a></p>
 <p><a href=https://stackoverflow.com/questions/51071321/nodejs-server-receiving-post-request>NodeJS server receiving POST request</a></p>
