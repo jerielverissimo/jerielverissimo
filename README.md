@@ -11,3 +11,5 @@ Here are some ideas to get you started:
 - 🤔 I’m looking for help with Vulkan/Opengl
 - 😄 Pronouns: He/Him
 
+![GitHub Snake Light](https://raw.githubusercontent.com/jerielverissimo/jerielverissimo/output/github-snake.svg#gh-light-mode-only)
+![GitHub Snake dark](https://raw.githubusercontent.com/jerielverissimo/jerielverissimo/output/github-snake-dark.svg#gh-dark-mode-only)
