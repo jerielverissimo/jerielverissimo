@@ -1,346 +1,205 @@
-<!doctype html><html lang=pt>
-<head>
-<title>
-Criando um web server em Nodejs ::
-Na minha máquina funciona
-</title>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=description content="Introdução Quando você visualiza uma página web no seu browser, seu computador está fazendo uma requisição para um outro computador (🌈 Internet), a resposta dessa requisição normalmente é uma página HTML. Na real as coisas não são tão simples assim, tem bastante coisa que rola no meio do caminho para isso funcionar, mas normalmente quem devolve essa resposta para seu browser é um web server. Caso queira se aprofundar tem esse artigo como um bom ponto de partida que explica como a web funciona.">
-<meta name=keywords content>
-<meta name=robots content="noodp">
-<link rel=canonical href=https://jerielverissimo.github.io/criando-um-web-server-em-nodejs/>
-<link rel=stylesheet href=https://jerielverissimo.github.io/assets/style.css>
-<link rel=stylesheet href=https://jerielverissimo.github.io/style.css>
-<link rel=apple-touch-icon-precomposed sizes=144x144 href=https://jerielverissimo.github.io/img/apple-touch-icon-144-precomposed.png>
-<link rel="shortcut icon" href=https://jerielverissimo.github.io/img/favicon.png>
-<link href=https://jerielverissimo.github.io/assets/fonts/Inter-Italic.woff2 rel=preload type=font/woff2 as=font crossorigin>
-<link href=https://jerielverissimo.github.io/assets/fonts/Inter-Regular.woff2 rel=preload type=font/woff2 as=font crossorigin>
-<link href=https://jerielverissimo.github.io/assets/fonts/Inter-Medium.woff2 rel=preload type=font/woff2 as=font crossorigin>
-<link href=https://jerielverissimo.github.io/assets/fonts/Inter-MediumItalic.woff2 rel=preload type=font/woff2 as=font crossorigin>
-<link href=https://jerielverissimo.github.io/assets/fonts/Inter-Bold.woff2 rel=preload type=font/woff2 as=font crossorigin>
-<link href=https://jerielverissimo.github.io/assets/fonts/Inter-BoldItalic.woff2 rel=preload type=font/woff2 as=font crossorigin>
-<meta name=twitter:card content="summary">
-<meta name=twitter:title content="Criando um web server em Nodejs">
-<meta name=twitter:description content="Introdução Quando você visualiza uma página web no seu browser, seu computador está fazendo uma requisição para um outro computador (🌈 Internet), a resposta dessa requisição normalmente é uma página HTML. Na real as coisas não são tão simples assim, tem bastante coisa que rola no meio do caminho para isso funcionar, mas normalmente quem devolve essa resposta para seu browser é um web server. Caso queira se aprofundar tem esse artigo como um bom ponto de partida que explica como a web funciona.">
-<meta property="og:title" content="Criando um web server em Nodejs">
-<meta property="og:description" content="Introdução Quando você visualiza uma página web no seu browser, seu computador está fazendo uma requisição para um outro computador (🌈 Internet), a resposta dessa requisição normalmente é uma página HTML. Na real as coisas não são tão simples assim, tem bastante coisa que rola no meio do caminho para isso funcionar, mas normalmente quem devolve essa resposta para seu browser é um web server. Caso queira se aprofundar tem esse artigo como um bom ponto de partida que explica como a web funciona.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://jerielverissimo.github.io/criando-um-web-server-em-nodejs/"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2021-08-29T03:03:41-03:00">
-<meta property="article:modified_time" content="2021-08-29T03:03:41-03:00"><meta property="og:site_name" content="Na minha máquina funciona">
-</head>
-<body class=dark-theme>
-<div class=container>
-<header class=header>
-<span class=header__inner>
-<a href=/ class=logo style=text-decoration:none>
-<span class=logo__mark><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44"><path fill="none" d="M15 8l14.729 14.382L15 35.367"/></svg>
-</span>
-<span class=logo__text>Na minha máquina funciona</span>
-<span class=logo__cursor></span>
-</a>
-<span class=header__right>
-<nav class=menu>
-<ul class="menu__inner menu__inner--desktop">
-<li><a href=/sobre>Sobre</a></li>
-</ul>
-<ul class="menu__inner menu__inner--mobile">
-<li><a href=/sobre>Sobre</a></li>
-</ul>
-</nav>
-<span class=menu-trigger><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
-</span>
-<span class=theme-toggle><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 41c10.4934.0 19-8.5066 19-19C41 11.5066 32.4934 3 22 3 11.5066 3 3 11.5066 3 22s8.5066 19 19 19zM7 22C7 13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22z"/></svg>
-</span>
-</span>
-</span>
-</header>
-<div class=content>
-<div class=post>
-<h1 class=post-title>Criando um web server em Nodejs</h1>
-<div class=post-meta>
-<span class=post-date>
-2021-08-29
-</span>
-</div>
-<div class=post-content>
-<h2 id=introdução>Introdução</h2>
-<p>Quando você visualiza uma página web no seu browser, seu computador está fazendo uma requisição para um outro computador (🌈 Internet), a resposta dessa requisição normalmente é uma página HTML.
+<!doctype html><html lang=pt><head><title>Criando um web server em Nodejs ::
+Na minha máquina funciona</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Introdução Quando você visualiza uma página web no seu browser, seu computador está fazendo uma requisição para um outro computador (🌈 Internet), a resposta dessa requisição normalmente é uma página HTML. Na real as coisas não são tão simples assim, tem bastante coisa que rola no meio do caminho para isso funcionar, mas normalmente quem devolve essa resposta para seu browser é um web server. Caso queira se aprofundar tem esse artigo como um bom ponto de partida que explica como a web funciona."><meta name=keywords content><meta name=robots content="noodp"><link rel=canonical href=https://jerielverissimo.github.io/criando-um-web-server-em-nodejs/><link rel=stylesheet href=https://jerielverissimo.github.io/assets/style.css><link rel=stylesheet href=https://jerielverissimo.github.io/style.css><link rel=apple-touch-icon-precomposed sizes=144x144 href=https://jerielverissimo.github.io/img/apple-touch-icon-144-precomposed.png><link rel="shortcut icon" href=https://jerielverissimo.github.io/img/favicon.png><link href=https://jerielverissimo.github.io/assets/fonts/Inter-Italic.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://jerielverissimo.github.io/assets/fonts/Inter-Regular.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://jerielverissimo.github.io/assets/fonts/Inter-Medium.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://jerielverissimo.github.io/assets/fonts/Inter-MediumItalic.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://jerielverissimo.github.io/assets/fonts/Inter-Bold.woff2 rel=preload type=font/woff2 as=font crossorigin><link href=https://jerielverissimo.github.io/assets/fonts/Inter-BoldItalic.woff2 rel=preload type=font/woff2 as=font crossorigin><meta name=twitter:card content="summary"><meta name=twitter:title content="Criando um web server em Nodejs"><meta name=twitter:description content="Introdução Quando você visualiza uma página web no seu browser, seu computador está fazendo uma requisição para um outro computador (🌈 Internet), a resposta dessa requisição normalmente é uma página HTML. Na real as coisas não são tão simples assim, tem bastante coisa que rola no meio do caminho para isso funcionar, mas normalmente quem devolve essa resposta para seu browser é um web server. Caso queira se aprofundar tem esse artigo como um bom ponto de partida que explica como a web funciona."><meta property="og:title" content="Criando um web server em Nodejs"><meta property="og:description" content="Introdução Quando você visualiza uma página web no seu browser, seu computador está fazendo uma requisição para um outro computador (🌈 Internet), a resposta dessa requisição normalmente é uma página HTML. Na real as coisas não são tão simples assim, tem bastante coisa que rola no meio do caminho para isso funcionar, mas normalmente quem devolve essa resposta para seu browser é um web server. Caso queira se aprofundar tem esse artigo como um bom ponto de partida que explica como a web funciona."><meta property="og:type" content="article"><meta property="og:url" content="https://jerielverissimo.github.io/criando-um-web-server-em-nodejs/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-08-29T03:03:41-03:00"><meta property="article:modified_time" content="2021-08-29T03:03:41-03:00"><meta property="og:site_name" content="Na minha máquina funciona"></head><body class=dark-theme><div class=container><header class=header><span class=header__inner><a href=/ class=logo style=text-decoration:none><span class=logo__mark><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44"><path fill="none" d="M15 8l14.729 14.382L15 35.367"/></svg></span><span class=logo__text>Na minha máquina funciona</span>
+<span class=logo__cursor></span></a>
+<span class=header__right><nav class=menu><ul class="menu__inner menu__inner--desktop"><li><a href=/sobre>Sobre</a></li></ul><ul class="menu__inner menu__inner--mobile"><li><a href=/sobre>Sobre</a></li></ul></nav><span class=menu-trigger><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg></span><span class=theme-toggle><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 41c10.4934.0 19-8.5066 19-19C41 11.5066 32.4934 3 22 3 11.5066 3 3 11.5066 3 22s8.5066 19 19 19zM7 22C7 13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22z"/></svg></span></span></span></header><div class=content><div class=post><h1 class=post-title>Criando um web server em Nodejs</h1><div class=post-meta><span class=post-date>2021-08-29</span></div><div class=post-content><h2 id=introdução>Introdução</h2><p>Quando você visualiza uma página web no seu browser, seu computador está fazendo uma requisição para um outro computador (🌈 Internet), a resposta dessa requisição normalmente é uma página HTML.
 Na real as coisas não são tão simples assim, tem bastante coisa que rola no meio do caminho para isso funcionar, mas normalmente quem devolve essa resposta para seu browser é um web server.
 Caso queira se aprofundar tem esse
 <strong><a href=https://developer.mozilla.org/pt-BR/docs/Learn/Getting_started_with_the_web/How_the_Web_works>artigo</a></strong>
-como um bom ponto de partida que explica como a web funciona.</p>
-<h2 id=web-server>Web server</h2>
-<p>E é sobre isso que vamos falar hoje neste post, vamos criar um servidor web bem simples usando o <em><strong>Nodejs</strong></em>.</p>
-<p>A comunicação entre seu browser e o <em>servidor</em> (quem responde suas requisições 😉), é feita por meio do protocolo <em><strong>HTTP</strong></em>,
-e o nodejs já traz em sua biblioteca padrão um módulo chamado <em><strong>http</strong></em> que adivinha o que ele faz? Isso mesmo, abstrair pra gente as funcionalidades deste protocolo.</p>
-<h3 id=primeiro-passo----criando-um-servidor-http-básico>Primeiro passo &ndash; Criando um servidor HTTP básico</h3>
-<p>Vamos começar criando uma pasta para nosso projeto e dentro dela crie um arquivo js que será usado para criar o servidor.</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ mkdir basic-server
-$ <span style=color:#fff;font-weight:700>cd</span> basic-server
-$ touch server.js
-</code></pre></div><p>Abra o arquivo server.js que a gente acabou de criar com seu editor preferido e começe importando o módulo http.</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=color:#fff;font-weight:700>const</span> http = require(<span style=color:#0ff;font-weight:700>&#39;http&#39;</span>);
-</code></pre></div><p>Para nosso web server funcionar precisamos falar para ele ficar escutando de algum lugar as requisições.
+como um bom ponto de partida que explica como a web funciona.</p><h2 id=web-server>Web server</h2><p>E é sobre isso que vamos falar hoje neste post, vamos criar um servidor web bem simples usando o <em><strong>Nodejs</strong></em>.</p><p>A comunicação entre seu browser e o <em>servidor</em> (quem responde suas requisições 😉), é feita por meio do protocolo <em><strong>HTTP</strong></em>,
+e o nodejs já traz em sua biblioteca padrão um módulo chamado <em><strong>http</strong></em> que adivinha o que ele faz? Isso mesmo, abstrair pra gente as funcionalidades deste protocolo.</p><h3 id=primeiro-passo----criando-um-servidor-http-básico>Primeiro passo &ndash; Criando um servidor HTTP básico</h3><p>Vamos começar criando uma pasta para nosso projeto e dentro dela crie um arquivo js que será usado para criar o servidor.</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ mkdir basic-server
+</span></span><span style=display:flex><span>$ <span style=color:#fff;font-weight:700>cd</span> basic-server
+</span></span><span style=display:flex><span>$ touch server.js
+</span></span></code></pre></div><p>Abra o arquivo server.js que a gente acabou de criar com seu editor preferido e começe importando o módulo http.</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span><span style=color:#fff;font-weight:700>const</span> http = require(<span style=color:#0ff;font-weight:700>&#39;http&#39;</span>);
+</span></span></code></pre></div><p>Para nosso web server funcionar precisamos falar para ele ficar escutando de algum lugar as requisições.
 Então passamos para ele um endereço e uma porta, que nesse caso podemos usar o endereço <em><strong>localhost</strong></em> e a porta <em><strong>8080</strong></em>
-já que vamos rodar em nossa própria máquina.</p>
-<p>Usamos localhost porque é um apelido para nosso próprio computador, poderiamos usar o IP 127.0.0.1 que é a tradução
+já que vamos rodar em nossa própria máquina.</p><p>Usamos localhost porque é um apelido para nosso próprio computador, poderiamos usar o IP 127.0.0.1 que é a tradução
 de localhost, caso queira entender melhor como o <em><strong>DNS</strong></em> funciona tem esse
 <em><strong><a href=https://developer.mozilla.org/pt-BR/docs/Learn/Common_questions/What_is_a_domain_name>artigo</a></strong></em>
-que pode lhe ajudar.</p>
-<p>Assim toda requisição que chegar nesse endereço e porta, nosso Sistema Operacional magicamente irá redirecionar
-para nosso web server e irá devolver a resposta do nosso web server para quem fez a requisição.</p>
-<p>Bom voltando para o nosso arquivo server.js, cria logo abaixo da importação do módulo http o endereço e porta para usarmos depois.</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js>...
-<span style=color:#fff;font-weight:700>const</span> host = <span style=color:#0ff;font-weight:700>&#39;localhost&#39;</span>;
-<span style=color:#fff;font-weight:700>const</span> port = <span style=color:#ff0;font-weight:700>8080</span>;
-</code></pre></div><p>Vamos adicionar uma função que será responsável por gerenciar as requisições que nosso servidor for recebendo.
+que pode lhe ajudar.</p><p>Assim toda requisição que chegar nesse endereço e porta, nosso Sistema Operacional magicamente irá redirecionar
+para nosso web server e irá devolver a resposta do nosso web server para quem fez a requisição.</p><p>Bom voltando para o nosso arquivo server.js, cria logo abaixo da importação do módulo http o endereço e porta para usarmos depois.</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#fff;font-weight:700>const</span> host = <span style=color:#0ff;font-weight:700>&#39;localhost&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#fff;font-weight:700>const</span> port = <span style=color:#ff0;font-weight:700>8080</span>;
+</span></span></code></pre></div><p>Vamos adicionar uma função que será responsável por gerenciar as requisições que nosso servidor for recebendo.
 Essa função recebe como argumentos dois objetos, um de <em><strong>request</strong></em> e outro de <em><strong>response</strong></em>, que podemos chamar elas de <em><strong>req</strong></em> e <em><strong>res</strong></em>.
-Como no nosso caso queremos devolver uma resposta, vamos utilizar o objeto de <em>response</em>.</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js>...
-<span style=color:#fff;font-weight:700>const</span> listener = <span style=color:#fff;font-weight:700>function</span> (req, res) {
-  res.writeHead(<span style=color:#ff0;font-weight:700>200</span>);
-  res.end(<span style=color:#0ff;font-weight:700>&#34;Hello, from my server :)&#34;</span>);
-};
-</code></pre></div><p>No protocolo HTTP quando fazemos uma requisição obtemos uma resposta com um status, que indica como essa requisição
-foi tratada pelo servidor. Vamos focar por enquanto em uma requisição do tipo <em><strong>GET</strong></em>.</p>
-<p>Com o método <em><strong>writeHead</strong></em> passamos o status da resposta, que nesse caso é 200 que vai indicar que tudo ocorreu com sucesso.
-Já o método <em><strong>end</strong></em> devolve de fato a resposta HTTP com tudo o que passamos pra ele.</p>
-<p>Apenas com essa função não conseguimos fazer muita coisa, quem de fato vai fazer a mágica é a lib http, basta a gente
+Como no nosso caso queremos devolver uma resposta, vamos utilizar o objeto de <em>response</em>.</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#fff;font-weight:700>const</span> listener = <span style=color:#fff;font-weight:700>function</span> (req, res) {
+</span></span><span style=display:flex><span>  res.writeHead(<span style=color:#ff0;font-weight:700>200</span>);
+</span></span><span style=display:flex><span>  res.end(<span style=color:#0ff;font-weight:700>&#34;Hello, from my server :)&#34;</span>);
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><p>No protocolo HTTP quando fazemos uma requisição obtemos uma resposta com um status, que indica como essa requisição
+foi tratada pelo servidor. Vamos focar por enquanto em uma requisição do tipo <em><strong>GET</strong></em>.</p><p>Com o método <em><strong>writeHead</strong></em> passamos o status da resposta, que nesse caso é 200 que vai indicar que tudo ocorreu com sucesso.
+Já o método <em><strong>end</strong></em> devolve de fato a resposta HTTP com tudo o que passamos pra ele.</p><p>Apenas com essa função não conseguimos fazer muita coisa, quem de fato vai fazer a mágica é a lib http, basta a gente
 criar um servidor usando a lib passando nossa função que acabamos de criar como argumento, que ela será usada toda vez que esse servidor
-receber uma requisição.</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js>...
-<span style=color:#fff;font-weight:700>const</span> server = http.createServer(listener);
-server.listen(port, host, () =&gt; {
-  console.log(<span style=color:#0ff;font-weight:700>`Server is running on http://</span><span style=color:#0ff;font-weight:700>${</span>host<span style=color:#0ff;font-weight:700>}</span><span style=color:#0ff;font-weight:700>:</span><span style=color:#0ff;font-weight:700>${</span>port<span style=color:#0ff;font-weight:700>}</span><span style=color:#0ff;font-weight:700>`</span>);
-});
-</code></pre></div><p>O que o método <em><strong>listen</strong></em> faz é atrelar o servidor que foi criado a um endereço e porta,
-ele recebe também uma <em>callback</em> que é executada quando tudo está pronto.</p>
-<p>Bom com isso basta abrir um terminal e rodar nosso script pra subir nosso servidorzinho.</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ node server.js
-</code></pre></div><p>Você vai ver o log da callback de sucesso que passamos para o método listen indicando que nosso servidor
-está pronto para receber requisições.</p>
-<pre tabindex=0><code>Server is running on http://localhost:8080
-</code></pre><p>Para testarmos basta fazer uma requisição <strong>GET</strong> usando o <em><strong>cURL</strong></em>, caso prefira pode abrir o mesmo endereço no seu browser.</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ curl http://localhost:8080
-</code></pre></div><p>E você vai ver a mensagem que nosso servidorzinho enviou 😎.</p>
-<pre tabindex=0><code>Hello, from my server :)
-</code></pre><h3 id=segundo-passo----servindo-uma-página-html>Segundo passo &ndash; Servindo uma página HTML</h3>
-<p>Só com isso não é suficiente para criarmos uma aplicação mais complexa, podemos por exemplo querer enviar uma página <strong>HTML</strong>
-para o browser.</p>
-<p>Para isso usamos os cabeçalhos, que sã́o atributos que passamos nas requests/responses no protocolo HTTP.
+receber uma requisição.</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#fff;font-weight:700>const</span> server = http.createServer(listener);
+</span></span><span style=display:flex><span>server.listen(port, host, () =&gt; {
+</span></span><span style=display:flex><span>  console.log(<span style=color:#0ff;font-weight:700>`Server is running on http://</span><span style=color:#0ff;font-weight:700>${</span>host<span style=color:#0ff;font-weight:700>}</span><span style=color:#0ff;font-weight:700>:</span><span style=color:#0ff;font-weight:700>${</span>port<span style=color:#0ff;font-weight:700>}</span><span style=color:#0ff;font-weight:700>`</span>);
+</span></span><span style=display:flex><span>});
+</span></span></code></pre></div><p>O que o método <em><strong>listen</strong></em> faz é atrelar o servidor que foi criado a um endereço e porta,
+ele recebe também uma <em>callback</em> que é executada quando tudo está pronto.</p><p>Bom com isso basta abrir um terminal e rodar nosso script pra subir nosso servidorzinho.</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ node server.js
+</span></span></code></pre></div><p>Você vai ver o log da callback de sucesso que passamos para o método listen indicando que nosso servidor
+está pronto para receber requisições.</p><pre tabindex=0><code>Server is running on http://localhost:8080
+</code></pre><p>Para testarmos basta fazer uma requisição <strong>GET</strong> usando o <em><strong>cURL</strong></em>, caso prefira pode abrir o mesmo endereço no seu browser.</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ curl http://localhost:8080
+</span></span></code></pre></div><p>E você vai ver a mensagem que nosso servidorzinho enviou 😎.</p><pre tabindex=0><code>Hello, from my server :)
+</code></pre><h3 id=segundo-passo----servindo-uma-página-html>Segundo passo &ndash; Servindo uma página HTML</h3><p>Só com isso não é suficiente para criarmos uma aplicação mais complexa, podemos por exemplo querer enviar uma página <strong>HTML</strong>
+para o browser.</p><p>Para isso usamos os cabeçalhos, que sã́o atributos que passamos nas requests/responses no protocolo HTTP.
 Usando nosso exemplo, vamos alterar a função listener que criamos para adicionar na resposta um <em><strong>header</strong></em> que vai indicar
-que estamos enviando como resposta um arquivo HTML, e mudamos também o conteúdo para um html válido.</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js>...
-<span style=color:#fff;font-weight:700>const</span> listener = <span style=color:#fff;font-weight:700>function</span> (req, res) {
-  res.setHeader(<span style=color:#0ff;font-weight:700>&#39;Content-Type&#39;</span>, <span style=color:#0ff;font-weight:700>&#39;text/html&#39;</span>);
-  res.writeHead(<span style=color:#ff0;font-weight:700>200</span>);
-  res.end(<span style=color:#0ff;font-weight:700>&#34;&lt;html&gt;&lt;body&gt;&lt;h1&gt;This is an HTML file&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;&#34;</span>);
-};
-...
-</code></pre></div><p>Agora se você subir de novo o servidor e abrir o endereço no browser irá visualizar a página HTML que enviamos, da mesma forma via terminal.</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ curl http://localhost:8080
-&lt;html&gt;&lt;body&gt;&lt;h1&gt;This is an HTML file&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;
-</code></pre></div><h3 id=terceiro-passo----servindo-um-json>Terceiro passo &ndash; Servindo um JSON</h3>
-<p>Um outro formato que é bem comum é o <strong>JSON</strong>, que é bastante utilizado quando se envolve <em><strong>APIs</strong></em>.
-Caso queira suportar esse formato basta mudar novamente o listener para:</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js>...
-<span style=color:#fff;font-weight:700>const</span> listener = <span style=color:#fff;font-weight:700>function</span> (req, res) {
-  res.setHeader(<span style=color:#0ff;font-weight:700>&#39;Content-Type&#39;</span>, <span style=color:#0ff;font-weight:700>&#39;application/json&#39;</span>);
-  res.writeHead(<span style=color:#ff0;font-weight:700>200</span>);
-  res.end(<span style=color:#0ff;font-weight:700>&#39;{ &#34;message&#34;: &#34;valid JSON object&#34; }&#39;</span>);
-};
-...
-</code></pre></div><p>E novamente&mldr;</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ curl http://localhost:8080
-{ <span style=color:#0ff;font-weight:700>&#34;message&#34;</span>: <span style=color:#0ff;font-weight:700>&#34;valid JSON object&#34;</span> }
-</code></pre></div><h3 id=quarto-passo----recebendo-um-post>Quarto passo &ndash; Recebendo um POST</h3>
-<p>Até agora lidamos apenas com requisições do tipo <strong>GET</strong>, outro tipo que é bastante comum são as do tipo <strong>POST</strong>.
-Elas dão um pouco mais de trabalho para usarmos, mas não é nenhuma coisa de outro mundo.</p>
-<p>O módulo http do nodejs usa as <em><strong>Streams</strong></em> para gerenciar as requests e responses, ou seja tudo é feito em um fluxo
+que estamos enviando como resposta um arquivo HTML, e mudamos também o conteúdo para um html válido.</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#fff;font-weight:700>const</span> listener = <span style=color:#fff;font-weight:700>function</span> (req, res) {
+</span></span><span style=display:flex><span>  res.setHeader(<span style=color:#0ff;font-weight:700>&#39;Content-Type&#39;</span>, <span style=color:#0ff;font-weight:700>&#39;text/html&#39;</span>);
+</span></span><span style=display:flex><span>  res.writeHead(<span style=color:#ff0;font-weight:700>200</span>);
+</span></span><span style=display:flex><span>  res.end(<span style=color:#0ff;font-weight:700>&#34;&lt;html&gt;&lt;body&gt;&lt;h1&gt;This is an HTML file&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;&#34;</span>);
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>...
+</span></span></code></pre></div><p>Agora se você subir de novo o servidor e abrir o endereço no browser irá visualizar a página HTML que enviamos, da mesma forma via terminal.</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ curl http://localhost:8080
+</span></span><span style=display:flex><span>&lt;html&gt;&lt;body&gt;&lt;h1&gt;This is an HTML file&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;
+</span></span></code></pre></div><h3 id=terceiro-passo----servindo-um-json>Terceiro passo &ndash; Servindo um JSON</h3><p>Um outro formato que é bem comum é o <strong>JSON</strong>, que é bastante utilizado quando se envolve <em><strong>APIs</strong></em>.
+Caso queira suportar esse formato basta mudar novamente o listener para:</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#fff;font-weight:700>const</span> listener = <span style=color:#fff;font-weight:700>function</span> (req, res) {
+</span></span><span style=display:flex><span>  res.setHeader(<span style=color:#0ff;font-weight:700>&#39;Content-Type&#39;</span>, <span style=color:#0ff;font-weight:700>&#39;application/json&#39;</span>);
+</span></span><span style=display:flex><span>  res.writeHead(<span style=color:#ff0;font-weight:700>200</span>);
+</span></span><span style=display:flex><span>  res.end(<span style=color:#0ff;font-weight:700>&#39;{ &#34;message&#34;: &#34;valid JSON object&#34; }&#39;</span>);
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>...
+</span></span></code></pre></div><p>E novamente&mldr;</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ curl http://localhost:8080
+</span></span><span style=display:flex><span>{ <span style=color:#0ff;font-weight:700>&#34;message&#34;</span>: <span style=color:#0ff;font-weight:700>&#34;valid JSON object&#34;</span> }
+</span></span></code></pre></div><h3 id=quarto-passo----recebendo-um-post>Quarto passo &ndash; Recebendo um POST</h3><p>Até agora lidamos apenas com requisições do tipo <strong>GET</strong>, outro tipo que é bastante comum são as do tipo <strong>POST</strong>.
+Elas dão um pouco mais de trabalho para usarmos, mas não é nenhuma coisa de outro mundo.</p><p>O módulo http do nodejs usa as <em><strong>Streams</strong></em> para gerenciar as requests e responses, ou seja tudo é feito em um fluxo
 contínuo de forma <strong>assíncrona</strong> para que, por exemplo, uma requisição que demore mais para ser respondida não bloqueia o servidor de receber
-outras requisições que vão chegando ao mesmo tempo.</p>
-<p>Por isso uma requisição por exemplo não chega pronta com tudo de uma vez, ela chega em pedaços, precisamos ir <em>&ldquo;montando&rdquo;</em> ela
-primeiro como se fosse peças de um <em><strong>Lego</strong></em>, antes de conseguir usar ela.</p>
-<p>Já que uma requisição do tipo <strong>POST</strong> possui um <em><strong>body</strong></em> como conteúdo, vamos precisar primeiro montar esse body à medida que ele vai chegando.</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js>...
-<span style=color:#fff;font-weight:700>const</span> listener = <span style=color:#fff;font-weight:700>function</span> (req, res) {
-  <span style=color:#fff;font-weight:700>let</span> body = <span style=color:#0ff;font-weight:700>&#39;&#39;</span>; <span style=color:#007f7f>// buffer para salvar os dados da requisição
-</span><span style=color:#007f7f></span>  req.on(<span style=color:#0ff;font-weight:700>&#39;data&#39;</span>, (chunk) =&gt; {
-    body += chunk; <span style=color:#007f7f>// os dados vão chegando em pedaços e não tudo de uma vez
-</span><span style=color:#007f7f></span>  });
-  ...
-};
-...
-</code></pre></div><p>Criamos uma variável chamada <em>body</em> para receber o conteúdo da requisição, e passamos ela na callback para ir incrementando seu conteúdo.
-Essa callback a gente passa no evento <strong>data</strong>, que é etapa da requisição que recebe um pedaço do seu conteúdo.</p>
-<p>Então toda vez que chegar um pedacinho dos dados, um evento do tipo <em><strong>data</strong></em> é emitido e essa callback que passamos é executada.</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js>...
-<span style=color:#fff;font-weight:700>const</span> listener = <span style=color:#fff;font-weight:700>function</span> (req, res) {
-  <span style=color:#fff;font-weight:700>let</span> body = <span style=color:#0ff;font-weight:700>&#39;&#39;</span>; <span style=color:#007f7f>// buffer para salvar os dados da requisição
-</span><span style=color:#007f7f></span>  req.on(<span style=color:#0ff;font-weight:700>&#39;data&#39;</span>, (chunk) =&gt; {
-    body += chunk; <span style=color:#007f7f>// os dados vão chegando em pedaços e não tudo de uma vez
-</span><span style=color:#007f7f></span>  });
-
-  <span style=color:#007f7f>// quando todos os pedaços da requisição chegaram :)
-</span><span style=color:#007f7f></span>  req.on(<span style=color:#0ff;font-weight:700>&#39;end&#39;</span>, () =&gt; {
-    console.log(body); <span style=color:#007f7f>// mostra o conteúdo que recebemos da requisição
-</span><span style=color:#007f7f></span>    res.writeHead(<span style=color:#ff0;font-weight:700>200</span>, { <span style=color:#0ff;font-weight:700>&#39;Content-Type&#39;</span>: <span style=color:#0ff;font-weight:700>&#39;application/json&#39;</span> });
-    res.end(<span style=color:#0ff;font-weight:700>&#39;Request received&#39;</span>); <span style=color:#007f7f>// devolve resposta para o cliente
-</span><span style=color:#007f7f></span>  });
-};
-...
-</code></pre></div><p>Quando não tem mais dados para receber da requisição, ou seja já recebemos todos os &ldquo;pedaços&rdquo; dela e conseguimos montar o &ldquo;lego&rdquo;,
+outras requisições que vão chegando ao mesmo tempo.</p><p>Por isso uma requisição por exemplo não chega pronta com tudo de uma vez, ela chega em pedaços, precisamos ir <em>&ldquo;montando&rdquo;</em> ela
+primeiro como se fosse peças de um <em><strong>Lego</strong></em>, antes de conseguir usar ela.</p><p>Já que uma requisição do tipo <strong>POST</strong> possui um <em><strong>body</strong></em> como conteúdo, vamos precisar primeiro montar esse body à medida que ele vai chegando.</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#fff;font-weight:700>const</span> listener = <span style=color:#fff;font-weight:700>function</span> (req, res) {
+</span></span><span style=display:flex><span>  <span style=color:#fff;font-weight:700>let</span> body = <span style=color:#0ff;font-weight:700>&#39;&#39;</span>; <span style=color:#007f7f>// buffer para salvar os dados da requisição
+</span></span></span><span style=display:flex><span><span style=color:#007f7f></span>  req.on(<span style=color:#0ff;font-weight:700>&#39;data&#39;</span>, (chunk) =&gt; {
+</span></span><span style=display:flex><span>    body += chunk; <span style=color:#007f7f>// os dados vão chegando em pedaços e não tudo de uma vez
+</span></span></span><span style=display:flex><span><span style=color:#007f7f></span>  });
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>...
+</span></span></code></pre></div><p>Criamos uma variável chamada <em>body</em> para receber o conteúdo da requisição, e passamos ela na callback para ir incrementando seu conteúdo.
+Essa callback a gente passa no evento <strong>data</strong>, que é etapa da requisição que recebe um pedaço do seu conteúdo.</p><p>Então toda vez que chegar um pedacinho dos dados, um evento do tipo <em><strong>data</strong></em> é emitido e essa callback que passamos é executada.</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#fff;font-weight:700>const</span> listener = <span style=color:#fff;font-weight:700>function</span> (req, res) {
+</span></span><span style=display:flex><span>  <span style=color:#fff;font-weight:700>let</span> body = <span style=color:#0ff;font-weight:700>&#39;&#39;</span>; <span style=color:#007f7f>// buffer para salvar os dados da requisição
+</span></span></span><span style=display:flex><span><span style=color:#007f7f></span>  req.on(<span style=color:#0ff;font-weight:700>&#39;data&#39;</span>, (chunk) =&gt; {
+</span></span><span style=display:flex><span>    body += chunk; <span style=color:#007f7f>// os dados vão chegando em pedaços e não tudo de uma vez
+</span></span></span><span style=display:flex><span><span style=color:#007f7f></span>  });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#007f7f>// quando todos os pedaços da requisição chegaram :)
+</span></span></span><span style=display:flex><span><span style=color:#007f7f></span>  req.on(<span style=color:#0ff;font-weight:700>&#39;end&#39;</span>, () =&gt; {
+</span></span><span style=display:flex><span>    console.log(body); <span style=color:#007f7f>// mostra o conteúdo que recebemos da requisição
+</span></span></span><span style=display:flex><span><span style=color:#007f7f></span>    res.writeHead(<span style=color:#ff0;font-weight:700>200</span>, { <span style=color:#0ff;font-weight:700>&#39;Content-Type&#39;</span>: <span style=color:#0ff;font-weight:700>&#39;application/json&#39;</span> });
+</span></span><span style=display:flex><span>    res.end(<span style=color:#0ff;font-weight:700>&#39;Request received&#39;</span>); <span style=color:#007f7f>// devolve resposta para o cliente
+</span></span></span><span style=display:flex><span><span style=color:#007f7f></span>  });
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>...
+</span></span></code></pre></div><p>Quando não tem mais dados para receber da requisição, ou seja já recebemos todos os &ldquo;pedaços&rdquo; dela e conseguimos montar o &ldquo;lego&rdquo;,
 um evento do tipo <strong>end</strong> é emitido e com isso passamos pra ele uma callback
 que nesse caso vamos apenas printar o conteúdo que recebemos que é o body da requisição <strong>POST</strong>
-e devolver uma resposta para o cliente.</p>
-<p>Vamos testar mandando um json para o servidor.</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ curl --location --request POST <span style=color:#0ff;font-weight:700>&#39;localhost:8080&#39;</span> <span style=color:#0ff;font-weight:700>\
-</span><span style=color:#0ff;font-weight:700></span>--header <span style=color:#0ff;font-weight:700>&#39;Content-Type: application/json&#39;</span> <span style=color:#0ff;font-weight:700>\
-</span><span style=color:#0ff;font-weight:700></span>--data-raw <span style=color:#0ff;font-weight:700>&#39;{ &#34;message&#34;: &#34;JSON from client.&#34; }&#39;</span>
-
-Request received
-</code></pre></div><p>E o servidor vai printar o conteúdo da requisição.</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ node server.js
-{ <span style=color:#0ff;font-weight:700>&#34;message&#34;</span>: <span style=color:#0ff;font-weight:700>&#34;JSON from client.&#34;</span> }
-</code></pre></div><h3 id=quinto-passo----lidando-com-rotas>Quinto passo &ndash; Lidando com rotas</h3>
-<p>Por último, quando lidamos com um servidor web é bem comum fazermos requisições via <strong>rotas</strong> assim podemos dividir nosso
-servidor em partes menores, e cada rota ser responsável por uma funcionalide.</p>
-<p>Por exemplo podemos ter uma rota chamada <strong>/add</strong> para adicionar um usuário e outra rota <strong>/users</strong> para listar os usuários adicionados.
-A rota /add vai ser uma rota do tipo <strong>POST</strong> e rota /users vai ser uma rota do tipo <strong>GET</strong>.</p>
-<p>Vamos mover todo conteúdo da nossa função listener para uma outra chamada de post.</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js>...
-<span style=color:#fff;font-weight:700>const</span> post = <span style=color:#fff;font-weight:700>function</span> (req, res) {
-  <span style=color:#fff;font-weight:700>let</span> body = <span style=color:#0ff;font-weight:700>&#39;&#39;</span>; <span style=color:#007f7f>// buffer para salvar os dados da requisição
-</span><span style=color:#007f7f></span>  req.on(<span style=color:#0ff;font-weight:700>&#39;data&#39;</span>, (chunk) =&gt; {
-    body += chunk; <span style=color:#007f7f>// os dados vão chegando em pedaços e não tudo de uma vez
-</span><span style=color:#007f7f></span>  });
-
-  <span style=color:#007f7f>// quando todos os pedaços da requisição chegaram :)
-</span><span style=color:#007f7f></span>  req.on(<span style=color:#0ff;font-weight:700>&#39;end&#39;</span>, () =&gt; {
-    console.log(body); <span style=color:#007f7f>// mostra o conteúdo que recebemos da requisição
-</span><span style=color:#007f7f></span>    res.writeHead(<span style=color:#ff0;font-weight:700>200</span>, { <span style=color:#0ff;font-weight:700>&#39;Content-Type&#39;</span>: <span style=color:#0ff;font-weight:700>&#39;application/json&#39;</span> });
-    res.end(<span style=color:#0ff;font-weight:700>&#39;Request received&#39;</span>); <span style=color:#007f7f>// devolve resposta para o cliente
-</span><span style=color:#007f7f></span>  });
-};
-...
-</code></pre></div><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js>...
-<span style=color:#fff;font-weight:700>const</span> listener = <span style=color:#fff;font-weight:700>function</span> (req, res) {};
-...
-</code></pre></div><p>Agora no nosso listener, vamos olhar para a url da requisição para decidirmos as rotas.
-Caso a url seja diferente da que estamos esperando, devolvemos um <em><strong>404</strong></em>.</p>
-<p>Na rota /add chamamos a função post que criamos para tratar a requisição desta rota.</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js>...
-<span style=color:#fff;font-weight:700>const</span> listener = <span style=color:#fff;font-weight:700>function</span> (req, res) {
-  <span style=color:#fff;font-weight:700>switch</span> (req.url) {
-    <span style=color:#fff;font-weight:700>case</span> <span style=color:#0ff;font-weight:700>&#39;/add&#39;</span>:
-      post(req, res);
-      <span style=color:#fff;font-weight:700>break</span>;
-    <span style=color:#fff;font-weight:700>case</span> <span style=color:#0ff;font-weight:700>&#39;/users&#39;</span>:
-      <span style=color:#fff;font-weight:700>break</span>;
-    <span style=color:#fff;font-weight:700>default</span>:
-      res.setHeader(<span style=color:#0ff;font-weight:700>&#39;Content-Type&#39;</span>, <span style=color:#0ff;font-weight:700>&#39;application/json&#39;</span>);
-      res.writeHead(<span style=color:#ff0;font-weight:700>404</span>);
-      res.end(JSON.stringify({ error: <span style=color:#0ff;font-weight:700>&#39;Resource not found&#39;</span> }));
-  }
-};
-...
-</code></pre></div><p>Para adicionar um usuário vamos simplesmente adicionar o conteúdo da request em um array, então nossa função <em>post vai</em> fica assim:</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js>...
-<span style=color:#fff;font-weight:700>const</span> users = [];
-
-<span style=color:#fff;font-weight:700>const</span> post = <span style=color:#fff;font-weight:700>function</span> (req, res) {
-  <span style=color:#fff;font-weight:700>let</span> body = <span style=color:#0ff;font-weight:700>&#39;&#39;</span>; <span style=color:#007f7f>// buffer para salvar os dados da requisição
-</span><span style=color:#007f7f></span>  req.on(<span style=color:#0ff;font-weight:700>&#39;data&#39;</span>, (chunk) =&gt; {
-    body += chunk; <span style=color:#007f7f>// os dados vão chegando em pedaços e não tudo de uma vez
-</span><span style=color:#007f7f></span>  });
-
-  <span style=color:#007f7f>// quando todos os pedaços da requisição chegaram :)
-</span><span style=color:#007f7f></span>  req.on(<span style=color:#0ff;font-weight:700>&#39;end&#39;</span>, () =&gt; {
-    <span style=color:#fff;font-weight:700>const</span> user = JSON.parse(body);
-    users.push(user); <span style=color:#007f7f>// adiciona o usuário em nossa lista
-</span><span style=color:#007f7f></span>
-    <span style=color:#007f7f>// também podemos adicionar ao mesmo tempo o status e os headers
-</span><span style=color:#007f7f></span>    res.writeHead(<span style=color:#ff0;font-weight:700>200</span>, { <span style=color:#0ff;font-weight:700>&#39;Content-Type&#39;</span>: <span style=color:#0ff;font-weight:700>&#39;application/json&#39;</span> });
-    res.end(<span style=color:#0ff;font-weight:700>&#39;User added&#39;</span>); <span style=color:#007f7f>// devolve resposta para o cliente
-</span><span style=color:#007f7f></span>  });
-};
-...
-</code></pre></div><p>Agora para listar os usuários adicionados simplesmente criamos uma função chamada get que devolve o array de usuários.</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js>...
-<span style=color:#fff;font-weight:700>const</span> get = <span style=color:#fff;font-weight:700>function</span> (req, res) {
-  res.setHeader(<span style=color:#0ff;font-weight:700>&#39;Content-Type&#39;</span>, <span style=color:#0ff;font-weight:700>&#39;application/json&#39;</span>);
-  res.writeHead(<span style=color:#ff0;font-weight:700>200</span>);
-  res.end(JSON.stringify(users));
-};
-...
-</code></pre></div><p>E por fim adicionamos a chamada desse get na rota de /users no nosso listener.</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js>...
-<span style=color:#fff;font-weight:700>const</span> listener = <span style=color:#fff;font-weight:700>function</span> (req, res) {
-  <span style=color:#fff;font-weight:700>switch</span> (req.url) {
-    <span style=color:#fff;font-weight:700>case</span> <span style=color:#0ff;font-weight:700>&#39;/add&#39;</span>:
-      post(req, res);
-      <span style=color:#fff;font-weight:700>break</span>;
-    <span style=color:#fff;font-weight:700>case</span> <span style=color:#0ff;font-weight:700>&#39;/users&#39;</span>:
-      get(req, res);
-      <span style=color:#fff;font-weight:700>break</span>;
-    <span style=color:#fff;font-weight:700>default</span>:
-      res.setHeader(<span style=color:#0ff;font-weight:700>&#39;Content-Type&#39;</span>, <span style=color:#0ff;font-weight:700>&#39;application/json&#39;</span>);
-      res.writeHead(<span style=color:#ff0;font-weight:700>404</span>);
-      res.end(JSON.stringify({ error: <span style=color:#0ff;font-weight:700>&#39;Resource not found&#39;</span> }));
-  }
-};
-...
-</code></pre></div><p>Assim conseguimos adicionar usuários.</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ curl --location --request POST <span style=color:#0ff;font-weight:700>&#39;localhost:8080/add&#39;</span> <span style=color:#0ff;font-weight:700>\
-</span><span style=color:#0ff;font-weight:700></span>--header <span style=color:#0ff;font-weight:700>&#39;Content-Type: application/json&#39;</span> <span style=color:#0ff;font-weight:700>\
-</span><span style=color:#0ff;font-weight:700></span>--data-raw <span style=color:#0ff;font-weight:700>&#39;{ &#34;name&#34;: &#34;João&#34; }&#39;</span>
-
-User added
-$ curl --location --request POST <span style=color:#0ff;font-weight:700>&#39;localhost:8080/add&#39;</span> <span style=color:#0ff;font-weight:700>\
-</span><span style=color:#0ff;font-weight:700></span>--header <span style=color:#0ff;font-weight:700>&#39;Content-Type: application/json&#39;</span> <span style=color:#0ff;font-weight:700>\
-</span><span style=color:#0ff;font-weight:700></span>--data-raw <span style=color:#0ff;font-weight:700>&#39;{ &#34;name&#34;: &#34;Maria&#34; }&#39;</span>
-
-User added
-</code></pre></div><p>E visualizar os usuários adicionados.</p>
-<div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ curl --location --request GET <span style=color:#0ff;font-weight:700>&#39;localhost:8080/users&#39;</span>
-
-[{<span style=color:#0ff;font-weight:700>&#34;name&#34;</span>:<span style=color:#0ff;font-weight:700>&#34;João&#34;</span>},{<span style=color:#0ff;font-weight:700>&#34;name&#34;</span>:<span style=color:#0ff;font-weight:700>&#34;Maria&#34;</span>}]
-</code></pre></div><p>E assim terminamos esse longo artigo, espero que tenha aprendido algo com ele, caso queira ver o arquivo final criei este
-<a href=https://gist.github.com/jerielverissimo/c84d24fb66bf813d056d8cef0aff270e>gist</a>.</p>
-<p>Claro que com isso que vimos hoje, talvez você não sai criando uma aplicação grande,
+e devolver uma resposta para o cliente.</p><p>Vamos testar mandando um json para o servidor.</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ curl --location --request POST <span style=color:#0ff;font-weight:700>&#39;localhost:8080&#39;</span> <span style=color:#0ff;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#0ff;font-weight:700></span>--header <span style=color:#0ff;font-weight:700>&#39;Content-Type: application/json&#39;</span> <span style=color:#0ff;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#0ff;font-weight:700></span>--data-raw <span style=color:#0ff;font-weight:700>&#39;{ &#34;message&#34;: &#34;JSON from client.&#34; }&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Request received
+</span></span></code></pre></div><p>E o servidor vai printar o conteúdo da requisição.</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ node server.js
+</span></span><span style=display:flex><span>{ <span style=color:#0ff;font-weight:700>&#34;message&#34;</span>: <span style=color:#0ff;font-weight:700>&#34;JSON from client.&#34;</span> }
+</span></span></code></pre></div><h3 id=quinto-passo----lidando-com-rotas>Quinto passo &ndash; Lidando com rotas</h3><p>Por último, quando lidamos com um servidor web é bem comum fazermos requisições via <strong>rotas</strong> assim podemos dividir nosso
+servidor em partes menores, e cada rota ser responsável por uma funcionalide.</p><p>Por exemplo podemos ter uma rota chamada <strong>/add</strong> para adicionar um usuário e outra rota <strong>/users</strong> para listar os usuários adicionados.
+A rota /add vai ser uma rota do tipo <strong>POST</strong> e rota /users vai ser uma rota do tipo <strong>GET</strong>.</p><p>Vamos mover todo conteúdo da nossa função listener para uma outra chamada de post.</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#fff;font-weight:700>const</span> post = <span style=color:#fff;font-weight:700>function</span> (req, res) {
+</span></span><span style=display:flex><span>  <span style=color:#fff;font-weight:700>let</span> body = <span style=color:#0ff;font-weight:700>&#39;&#39;</span>; <span style=color:#007f7f>// buffer para salvar os dados da requisição
+</span></span></span><span style=display:flex><span><span style=color:#007f7f></span>  req.on(<span style=color:#0ff;font-weight:700>&#39;data&#39;</span>, (chunk) =&gt; {
+</span></span><span style=display:flex><span>    body += chunk; <span style=color:#007f7f>// os dados vão chegando em pedaços e não tudo de uma vez
+</span></span></span><span style=display:flex><span><span style=color:#007f7f></span>  });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#007f7f>// quando todos os pedaços da requisição chegaram :)
+</span></span></span><span style=display:flex><span><span style=color:#007f7f></span>  req.on(<span style=color:#0ff;font-weight:700>&#39;end&#39;</span>, () =&gt; {
+</span></span><span style=display:flex><span>    console.log(body); <span style=color:#007f7f>// mostra o conteúdo que recebemos da requisição
+</span></span></span><span style=display:flex><span><span style=color:#007f7f></span>    res.writeHead(<span style=color:#ff0;font-weight:700>200</span>, { <span style=color:#0ff;font-weight:700>&#39;Content-Type&#39;</span>: <span style=color:#0ff;font-weight:700>&#39;application/json&#39;</span> });
+</span></span><span style=display:flex><span>    res.end(<span style=color:#0ff;font-weight:700>&#39;Request received&#39;</span>); <span style=color:#007f7f>// devolve resposta para o cliente
+</span></span></span><span style=display:flex><span><span style=color:#007f7f></span>  });
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>...
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#fff;font-weight:700>const</span> listener = <span style=color:#fff;font-weight:700>function</span> (req, res) {};
+</span></span><span style=display:flex><span>...
+</span></span></code></pre></div><p>Agora no nosso listener, vamos olhar para a url da requisição para decidirmos as rotas.
+Caso a url seja diferente da que estamos esperando, devolvemos um <em><strong>404</strong></em>.</p><p>Na rota /add chamamos a função post que criamos para tratar a requisição desta rota.</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#fff;font-weight:700>const</span> listener = <span style=color:#fff;font-weight:700>function</span> (req, res) {
+</span></span><span style=display:flex><span>  <span style=color:#fff;font-weight:700>switch</span> (req.url) {
+</span></span><span style=display:flex><span>    <span style=color:#fff;font-weight:700>case</span> <span style=color:#0ff;font-weight:700>&#39;/add&#39;</span>:
+</span></span><span style=display:flex><span>      post(req, res);
+</span></span><span style=display:flex><span>      <span style=color:#fff;font-weight:700>break</span>;
+</span></span><span style=display:flex><span>    <span style=color:#fff;font-weight:700>case</span> <span style=color:#0ff;font-weight:700>&#39;/users&#39;</span>:
+</span></span><span style=display:flex><span>      <span style=color:#fff;font-weight:700>break</span>;
+</span></span><span style=display:flex><span>    <span style=color:#fff;font-weight:700>default</span>:
+</span></span><span style=display:flex><span>      res.setHeader(<span style=color:#0ff;font-weight:700>&#39;Content-Type&#39;</span>, <span style=color:#0ff;font-weight:700>&#39;application/json&#39;</span>);
+</span></span><span style=display:flex><span>      res.writeHead(<span style=color:#ff0;font-weight:700>404</span>);
+</span></span><span style=display:flex><span>      res.end(JSON.stringify({ error: <span style=color:#0ff;font-weight:700>&#39;Resource not found&#39;</span> }));
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>...
+</span></span></code></pre></div><p>Para adicionar um usuário vamos simplesmente adicionar o conteúdo da request em um array, então nossa função <em>post vai</em> fica assim:</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#fff;font-weight:700>const</span> users = [];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#fff;font-weight:700>const</span> post = <span style=color:#fff;font-weight:700>function</span> (req, res) {
+</span></span><span style=display:flex><span>  <span style=color:#fff;font-weight:700>let</span> body = <span style=color:#0ff;font-weight:700>&#39;&#39;</span>; <span style=color:#007f7f>// buffer para salvar os dados da requisição
+</span></span></span><span style=display:flex><span><span style=color:#007f7f></span>  req.on(<span style=color:#0ff;font-weight:700>&#39;data&#39;</span>, (chunk) =&gt; {
+</span></span><span style=display:flex><span>    body += chunk; <span style=color:#007f7f>// os dados vão chegando em pedaços e não tudo de uma vez
+</span></span></span><span style=display:flex><span><span style=color:#007f7f></span>  });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#007f7f>// quando todos os pedaços da requisição chegaram :)
+</span></span></span><span style=display:flex><span><span style=color:#007f7f></span>  req.on(<span style=color:#0ff;font-weight:700>&#39;end&#39;</span>, () =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#fff;font-weight:700>const</span> user = JSON.parse(body);
+</span></span><span style=display:flex><span>    users.push(user); <span style=color:#007f7f>// adiciona o usuário em nossa lista
+</span></span></span><span style=display:flex><span><span style=color:#007f7f></span>
+</span></span><span style=display:flex><span>    <span style=color:#007f7f>// também podemos adicionar ao mesmo tempo o status e os headers
+</span></span></span><span style=display:flex><span><span style=color:#007f7f></span>    res.writeHead(<span style=color:#ff0;font-weight:700>200</span>, { <span style=color:#0ff;font-weight:700>&#39;Content-Type&#39;</span>: <span style=color:#0ff;font-weight:700>&#39;application/json&#39;</span> });
+</span></span><span style=display:flex><span>    res.end(<span style=color:#0ff;font-weight:700>&#39;User added&#39;</span>); <span style=color:#007f7f>// devolve resposta para o cliente
+</span></span></span><span style=display:flex><span><span style=color:#007f7f></span>  });
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>...
+</span></span></code></pre></div><p>Agora para listar os usuários adicionados simplesmente criamos uma função chamada get que devolve o array de usuários.</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#fff;font-weight:700>const</span> get = <span style=color:#fff;font-weight:700>function</span> (req, res) {
+</span></span><span style=display:flex><span>  res.setHeader(<span style=color:#0ff;font-weight:700>&#39;Content-Type&#39;</span>, <span style=color:#0ff;font-weight:700>&#39;application/json&#39;</span>);
+</span></span><span style=display:flex><span>  res.writeHead(<span style=color:#ff0;font-weight:700>200</span>);
+</span></span><span style=display:flex><span>  res.end(JSON.stringify(users));
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>...
+</span></span></code></pre></div><p>E por fim adicionamos a chamada desse get na rota de /users no nosso listener.</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#fff;font-weight:700>const</span> listener = <span style=color:#fff;font-weight:700>function</span> (req, res) {
+</span></span><span style=display:flex><span>  <span style=color:#fff;font-weight:700>switch</span> (req.url) {
+</span></span><span style=display:flex><span>    <span style=color:#fff;font-weight:700>case</span> <span style=color:#0ff;font-weight:700>&#39;/add&#39;</span>:
+</span></span><span style=display:flex><span>      post(req, res);
+</span></span><span style=display:flex><span>      <span style=color:#fff;font-weight:700>break</span>;
+</span></span><span style=display:flex><span>    <span style=color:#fff;font-weight:700>case</span> <span style=color:#0ff;font-weight:700>&#39;/users&#39;</span>:
+</span></span><span style=display:flex><span>      get(req, res);
+</span></span><span style=display:flex><span>      <span style=color:#fff;font-weight:700>break</span>;
+</span></span><span style=display:flex><span>    <span style=color:#fff;font-weight:700>default</span>:
+</span></span><span style=display:flex><span>      res.setHeader(<span style=color:#0ff;font-weight:700>&#39;Content-Type&#39;</span>, <span style=color:#0ff;font-weight:700>&#39;application/json&#39;</span>);
+</span></span><span style=display:flex><span>      res.writeHead(<span style=color:#ff0;font-weight:700>404</span>);
+</span></span><span style=display:flex><span>      res.end(JSON.stringify({ error: <span style=color:#0ff;font-weight:700>&#39;Resource not found&#39;</span> }));
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>...
+</span></span></code></pre></div><p>Assim conseguimos adicionar usuários.</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ curl --location --request POST <span style=color:#0ff;font-weight:700>&#39;localhost:8080/add&#39;</span> <span style=color:#0ff;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#0ff;font-weight:700></span>--header <span style=color:#0ff;font-weight:700>&#39;Content-Type: application/json&#39;</span> <span style=color:#0ff;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#0ff;font-weight:700></span>--data-raw <span style=color:#0ff;font-weight:700>&#39;{ &#34;name&#34;: &#34;João&#34; }&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>User added
+</span></span><span style=display:flex><span>$ curl --location --request POST <span style=color:#0ff;font-weight:700>&#39;localhost:8080/add&#39;</span> <span style=color:#0ff;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#0ff;font-weight:700></span>--header <span style=color:#0ff;font-weight:700>&#39;Content-Type: application/json&#39;</span> <span style=color:#0ff;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#0ff;font-weight:700></span>--data-raw <span style=color:#0ff;font-weight:700>&#39;{ &#34;name&#34;: &#34;Maria&#34; }&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>User added
+</span></span></code></pre></div><p>E visualizar os usuários adicionados.</p><div class=highlight><pre tabindex=0 style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ curl --location --request GET <span style=color:#0ff;font-weight:700>&#39;localhost:8080/users&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[{<span style=color:#0ff;font-weight:700>&#34;name&#34;</span>:<span style=color:#0ff;font-weight:700>&#34;João&#34;</span>},{<span style=color:#0ff;font-weight:700>&#34;name&#34;</span>:<span style=color:#0ff;font-weight:700>&#34;Maria&#34;</span>}]
+</span></span></code></pre></div><p>E assim terminamos esse longo artigo, espero que tenha aprendido algo com ele, caso queira ver o arquivo final criei este
+<a href=https://gist.github.com/jerielverissimo/c84d24fb66bf813d056d8cef0aff270e>gist</a>.</p><p>Claro que com isso que vimos hoje, talvez você não sai criando uma aplicação grande,
 já que isso é um pouco mais &ldquo;baixo&rdquo; nível e normalmente usamos um framework para fazer esse tipo tarefas,
-porém com esse conteúdo podemos tentar criar nosso mini-framework ao estilo express, que será nosso próximo assunto hehe.</p>
-<h4 id=referências>Referências</h4>
-<p><a href=https://www.digitalocean.com/community/tutorials/how-to-create-a-web-server-in-node-js-with-the-http-module>How To Create a Web Server in Node.js with the HTTP Module</a></p>
-<p><a href=https://stackoverflow.com/questions/51071321/nodejs-server-receiving-post-request>NodeJS server receiving POST request</a></p>
-<p><a href=https://www.tutorialspoint.com/nodejs/nodejs_streams.htm>Node.js - Streams</a></p>
-</div>
-<div id=disqus_thread></div>
-<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//na-minha-maquina-funciona.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
-<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
-<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
-</div>
-</div>
-<footer class=footer>
-<div class=footer__inner>
-<a href=/ class=logo style=text-decoration:none>
-<span class=logo__mark><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44"><path fill="none" d="M15 8l14.729 14.382L15 35.367"/></svg>
-</span>
-<span class=logo__text>Na minha máquina funciona</span>
-<span class=logo__cursor></span>
-</a>
-<div class=copyright>
-<span>© 2022 Powered by
+porém com esse conteúdo podemos tentar criar nosso mini-framework ao estilo express, que será nosso próximo assunto hehe.</p><h4 id=referências>Referências</h4><p><a href=https://www.digitalocean.com/community/tutorials/how-to-create-a-web-server-in-node-js-with-the-http-module>How To Create a Web Server in Node.js with the HTTP Module</a></p><p><a href=https://stackoverflow.com/questions/51071321/nodejs-server-receiving-post-request>NodeJS server receiving POST request</a></p><p><a href=https://www.tutorialspoint.com/nodejs/nodejs_streams.htm>Node.js - Streams</a></p></div><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//na-minha-maquina-funciona.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div></div><footer class=footer><div class=footer__inner><a href=/ class=logo style=text-decoration:none><span class=logo__mark><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44"><path fill="none" d="M15 8l14.729 14.382L15 35.367"/></svg></span><span class=logo__text>Na minha máquina funciona</span>
+<span class=logo__cursor></span></a><div class=copyright><span>© 2022 Powered by
 <a href=https://gohugo.io target=_blank rel=noopener>Hugo</a></span>
 <span>Theme created by
-<a href=https://twitter.com/panr target=_blank rel=noopener>panr</a></span>
-</div>
-</div>
-</footer>
-<script src=https://jerielverissimo.github.io/assets/main.js></script>
-<script src=https://jerielverissimo.github.io/assets/prism.js></script>
-</div>
-</body>
-</html>
+<a href=https://twitter.com/panr target=_blank rel=noopener>panr</a></span></div></div></footer><script src=https://jerielverissimo.github.io/assets/main.js></script>
+<script src=https://jerielverissimo.github.io/assets/prism.js></script></div></body></html>
